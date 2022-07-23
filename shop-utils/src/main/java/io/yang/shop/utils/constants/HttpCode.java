@@ -9,7 +9,7 @@ public class HttpCode {
     /**
      * 状态码 成功
      */
-    public static final int SUCESS = 200;
+    public static final int SUCCESS = 200;
 
     /**
      * 状态码 失败
