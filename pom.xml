@@ -11,6 +11,7 @@
     <modules>
         <module>shop-utils</module>
         <module>shop-bean</module>
+        <module>shop-user</module>
     </modules>
 
     <parent>
