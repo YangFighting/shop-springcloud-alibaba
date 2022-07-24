@@ -18,8 +18,8 @@ public class RestCtrlExceptionHandler {
     private final Logger logger =  LoggerFactory.getLogger(RestCtrlExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
-    public Result<String> handleException(Exception e){
-        logger.error("服务器异常：{0}", e);
+    public Result<String> handleException(Exception e) {
+        logger.error("服务器异常： " + e.getMessage());
         return new Result<String>(HttpCode.FAILURE, "执行失败", e.getMessage());
     }
 
