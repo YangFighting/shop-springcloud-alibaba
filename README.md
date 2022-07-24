@@ -20,9 +20,9 @@ https://blog.csdn.net/q15102780705/article/details/114687269
 
 
 
-新建数据库 表
+新建数据库，表
 
-```mysql
+```sql
 CREATE DATABASE shop;
 
 CREATE TABLE IF NOT EXISTS `t_user`(
@@ -66,3 +66,19 @@ CREATE TABLE IF NOT EXISTS `t_order_item`(
 
 ```
 
+添加测试数据
+
+```sql
+INSERT INTO `shop`.`t_user`(`id`, `t_username`, `t_password`, `t_phone`, `t_address`) VALUES (1001, 'binghe', 'c26be8aaf53b15054896983b43eb6a65', '13212345678', '北京');
+
+
+INSERT INTO `shop`.`t_product`(`id`, `t_pro_name`, `t_pro_price`, `t_pro_stock`) VALUES (1001, '华为', 2399.00, 100);
+INSERT INTO `shop`.`t_product`(`id`, `t_pro_name`, `t_pro_price`, `t_pro_stock`) VALUES (1002, '小米', 1999.00, 100);
+INSERT INTO `shop`.`t_product`(`id`, `t_pro_name`, `t_pro_price`, `t_pro_stock`) VALUES (1003, 'iphone', 4999.00, 100);
+```
+
+
+
+订单微服务测试
+
+http://localhost:8080/order/submit_order?productId=1001&userId=1001&count=1001
