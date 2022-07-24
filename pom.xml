@@ -12,7 +12,7 @@
         <module>shop-utils</module>
         <module>shop-bean</module>
         <module>shop-user</module>
-        <module>server-product</module>
+        <module>shop-product</module>
     </modules>
 
     <parent>

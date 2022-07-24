@@ -26,14 +26,43 @@ https://blog.csdn.net/q15102780705/article/details/114687269
 CREATE DATABASE shop;
 
 CREATE TABLE IF NOT EXISTS `t_user`(
-   `id` INT UNSIGNED,
+   `id` BIGINT UNSIGNED,
    `t_username` VARCHAR(50),
    `t_password` VARCHAR(64),
    `t_phone` VARCHAR(20),
    `t_address` VARCHAR(255),
-   `submission_date` DATE,
    PRIMARY KEY ( `id` )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `t_product`(
+   `id` BIGINT UNSIGNED,
+   `t_pro_name` VARCHAR(50),
+   `t_pro_price` DECIMAL(10,2),
+   `t_pro_stock` INT(11),
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `t_order`(
+   `id` BIGINT UNSIGNED,
+   `t_user_id` BIGINT(20),
+   `t_user_name` VARCHAR(50),
+   `t_phone` VARCHAR(20),
+   `t_address` VARCHAR(255),
+   `t_total_price` DECIMAL(10,2),
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `t_order_item`(
+   `id` BIGINT UNSIGNED,
+   `t_order_id` BIGINT(20),
+   `t_pro_id` BIGINT(20),
+   `t_pro_name` VARCHAR(50),
+   `t_pro_price` DECIMAL(10,2),
+   `t_number` INT(11),
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 ```
 

@@ -23,6 +23,8 @@ public class OrderItem implements Serializable {
     @TableId(value = "id", type = IdType.INPUT)
     @TableField(value = "id", fill = FieldFill.INSERT)
     private Long id;
+
+
     @TableField("t_order_id")
     private Long orderId;
     /**
