@@ -27,14 +27,15 @@ import java.math.BigDecimal;
  * @description 使用 Fegin 实现负载均衡
  **/
 @Slf4j
-@Service("orderServiceV5")
-public class OrderServiceV5Impl implements OrderService {
+@Service("orderServiceV6")
+public class OrderServiceV6Impl implements OrderService {
 
     @Resource
     private UserService userService;
 
     @Resource
     private ProductService productService;
+
 
     @Resource
     private OrderMapper orderMapper;
@@ -53,6 +54,9 @@ public class OrderServiceV5Impl implements OrderService {
         if (user == null) {
             throw new RuntimeException("未获取到用户信息： " + JSONObject.toJSONString(orderParams));
         }
+        if (user.getId() == -1) {
+            throw new RuntimeException("触发了用户微服务的容错逻辑: " + JSONObject.toJSONString(orderParams));
+        }
 
         Product product = productService.getProduct(orderParams.getProductId());
         if (product == null) {
@@ -61,6 +65,10 @@ public class OrderServiceV5Impl implements OrderService {
 
         if (product.getProStock() < orderParams.getCount()) {
             throw new RuntimeException("商品库存不足： " + JSONObject.toJSONString(orderParams));
+        }
+
+        if (product.getId() == -1) {
+            throw new RuntimeException("触发了商品微服务的容错逻辑: " + JSONObject.toJSONString(orderParams));
         }
 
         Order order = new Order();
@@ -81,6 +89,9 @@ public class OrderServiceV5Impl implements OrderService {
 
         Result result = productService.updateCount(orderParams.getProductId(), orderParams.getCount());
         assert result != null;
+        if (result.getCode() == 1001) {
+            throw new RuntimeException("触发了商品微服务的容错逻辑: " + JSONObject.toJSONString(orderParams));
+        }
         if (result.getCode() != HttpCode.SUCCESS) {
             throw new RuntimeException("库存扣减失败");
         }

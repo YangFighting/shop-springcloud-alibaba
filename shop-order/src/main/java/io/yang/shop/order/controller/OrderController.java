@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @Autowired
-    @Qualifier(value = "orderServiceV5")
+    @Qualifier(value = "orderServiceV6")
     private OrderService orderService;
 
     @GetMapping(value = "/submit_order")
@@ -27,5 +27,17 @@ public class OrderController {
         log.info("提交订单时传递的参数:{}", JSONObject.toJSONString(orderParams));
         orderService.saveOrder(orderParams);
         return "success";
+    }
+
+    @GetMapping(value = "/concurrent_request")
+    public String concurrentRequest() {
+        log.info("测试业务在高并发场景下是否存在问题");
+        return "yang";
+    }
+
+    @GetMapping(value = "/test_sentinel")
+    public String testSentinel(){
+        log.info("测试Sentinel");
+        return "sentinel";
     }
 }
