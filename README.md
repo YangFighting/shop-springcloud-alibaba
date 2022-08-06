@@ -87,13 +87,33 @@ http://localhost:8080/order/submit_order?productId=1001&userId=1001&count=1001
 
 5. 输入默认账号密码：nacos/nacos 
 
+[nacos2.1.0安装包](https://blog.csdn.net/huaquangui/article/details/124767123)
 
+- 解压压缩包
+
+```shell
+tar -zxf nacos-server-2.1.0.tar.gz 
+```
+
+- 启动`nacos`
+
+```shell
+bash /root/nacos-2.1.0/bin/startup.sh -m standalone
+```
 
 参考：
 
 https://blog.csdn.net/muriyue6/article/details/119845925
 
- 
+#### 使用2.1.0 遇到的问题
+
+启动时报错 Client not connected,current status:STARTING 
+
+需要开放 9846和 9849 两个端口
+
+https://zhuanlan.zhihu.com/p/482216338
+
+
 
 ## 整合Sentinel实现限流与容错 
 
@@ -165,8 +185,59 @@ https://www.jianshu.com/p/0e4daecc8122
 
 
 
-项目集成Sentinel 
+### 项目集成Sentinel 
 
 Failed to fetch metric from
 
 https://blog.csdn.net/weixin_44953395/article/details/122791379
+
+
+
+### 初步整合SpringCloud Gateway  
+
+1. **reactor.netty.http.server.HttpServer     : [id: 0xd768d665, L:/0:0:0:0:0:0:0:1:10001 - R:/0:0:0:0:0:0:0:1:14535]** 
+
+https://www.cnblogs.com/wypzpz/p/12940833.html
+
+版本引用
+
+```xml
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-gateway</artifactId>
+</dependency>
+
+```
+
+```xml
+<parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>2.2.6.RELEASE</version>
+</parent>
+```
+
+spring-cloud-starter-gateway 版本来自 spring-cloud.version
+
+2. **compatible version of reactor.netty.resources.ConnectionProvider$Builder**
+
+   目前Spring Boot的版本是 2.2.6.RELEASE，和  Spring Cloud 的版本（ Hoxton.SR12 ，spring-cloud-starter-gateway 2.2.9.RELEASE）有冲突，需要提高 Spring Boot 的版本，通过 dependencyManagement 的方式来更改 Spring Boot  的版本就可以解决。另外，还需要先启动shop-user等模块
+
+   **为什么 dependencyManagement 申明 Spring Boot 后，shop-gateway能正常启动，但是shop-gateway 的依赖还是 2.2.6？？** 
+   
+   
+
+####  版本选择
+
+Spring Cloud Alibaba
+
+Spring Boot 
+
+Spring Cloud 
+
+Nacos
+
+https://blog.csdn.net/qq_38637558/article/details/114448690
+
+https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E
+
