@@ -137,7 +137,7 @@ nohup java -Dserver.port=8888 -Dcsp.sentinel.dashboard.server=localhost:8888 -Dp
 
 启动后在浏览器中输入 http://47.97.124.83:8888 访问Sentinel控制台  
 
-window 启动
+#### window 启动
 
 ```powershell
 java -Dserver.port=8888 -Dcsp.sentinel.dashboard.server=localhost:8888 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.4.jar  
