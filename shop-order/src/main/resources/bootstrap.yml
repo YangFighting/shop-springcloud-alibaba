@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: server-order
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.97.124.83:8848
+        file-extension: yaml
+        group: order_group
+  profiles:
+    active: dev
